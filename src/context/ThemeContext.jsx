@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { useState, useEffect, createContext } from "react";
 
 const getInitialTheme = () => {
   if (typeof window !== "undefined" && window.localStorage) {
@@ -7,12 +7,11 @@ const getInitialTheme = () => {
       return storedPrefs;
     }
 
-    const userMedia = window.matchMedia("(prefers-color-schema: dark)");
+    const userMedia = window.matchMedia("(prefers-color-scheme: dark)");
     if (userMedia.matches) {
       return "dark";
     }
   }
-
   return "light";
 };
 
