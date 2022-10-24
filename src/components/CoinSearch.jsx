@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { AiOutlineStar } from "react-icons/ai";
+
 import axios from "axios";
+import CoinItem from "./CoinItem";
 
 const CoinSearch = () => {
+  const [searchtext, setSearchText] = useState("");
   const [coins, setCoins] = useState([]);
 
   const url =
@@ -14,50 +16,47 @@ const CoinSearch = () => {
     });
   }, [url]);
   return (
-    <div>
-      <div>
-        <h1>Search Crypto</h1>
+    <div className="rounded-div my-4">
+      <div className="flex flex-col md:flex-row justify-between pt-4 pb-6 text-center md:text-right">
+        <h1 className="text-2xl font-bold my-2">Search Crypto</h1>
         <form>
-          <input type="text" placeholder="Search a coin" />
+          <input
+            onChange={(e) => setSearchText(e.target.value)}
+            className="w-full bg-primary border border-input px-4 py-2 rounded-2xl shadow-xl"
+            type="text"
+            placeholder="Search a coin"
+          />
         </form>
       </div>
 
-      <table>
+      <table className="w-full border-collapse text-center">
         <thead>
-          <tr>
+          <tr className="border-b">
             <th></th>
-            <th>#</th>
+            <th className="px-4">#</th>
             <th>Coin</th>
             <th></th>
-            <th>Price</th>
+            <th className="text-left">Price</th>
             <th>24h</th>
-            <th>24h Volume</th>
-            <th>Mkt</th>
+            <th className="hidden md:table-cell">24h Volume</th>
+            <th className="hidden sm:table-cell">Mkt</th>
             <th>Last 7 Days</th>
           </tr>
         </thead>
         <tbody>
-          {coins.map((coin) => (
-            <tr>
-              <td>
-                <AiOutlineStar />
-              </td>
-              <td>{coin.market_cap_rank}</td>
-              <td>{coin.name}</td>
-              <td>
-                <div>
-                  <img src={coin.image} alt={coin.id} width="25" height="25" />
-                  <p>{coin.name}</p>
-                </div>
-              </td>
-              <td>{coin.symbol}</td>
-              <td>{coin.curent_price}</td>
-              <td>{coin.price_change_percentage_24h}</td>
-              <td>{coin.total_volume}</td>
-              <td>{coin.market_cap}</td>
-              <td>{coin.sparkline_in_7d.price}</td>
-            </tr>
-          ))}
+          {coins
+            .filter((value) => {
+              if (searchtext === "") {
+                return value;
+              } else if (
+                value.name.toLowerCase().includes(searchtext.toLowerCase())
+              ) {
+                return value;
+              }
+            })
+            .map((coin) => (
+              <CoinItem key={coin.id} coin={coin} />
+            ))}
         </tbody>
       </table>
     </div>
