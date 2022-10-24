@@ -10,7 +10,7 @@ const Navbar = () => {
     setNav(!nav);
   };
   return (
-    <div className="rounded-div flex items-center justify-between h-20 font-bold">
+    <div className="rounded-div flex items-center justify-between h-20 font-bold ease-in duration-300 z-10">
       <Link to="/">
         <h1 className="text-2xl">Crgyptobase</h1>
       </Link>
