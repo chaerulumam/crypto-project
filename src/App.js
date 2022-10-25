@@ -7,6 +7,7 @@ import Signin from "./routes/Signin";
 import Signup from "./routes/Signup";
 import Account from "./routes/Account";
 import CoinPage from "./routes/CoinPage";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path=":coinId" />
         </Route>
       </Routes>
+      <Footer />
     </ThemeProvider>
   );
 }
