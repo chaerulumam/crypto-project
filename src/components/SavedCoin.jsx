@@ -13,9 +13,9 @@ const SavedCoin = () => {
     onSnapshot(doc(db, "user", `${user?.email}`), (doc) => {
       setCoins(doc.data()?.watchList);
     });
-  }, [user.email]);
+  }, [user?.email]);
 
-  const coinPath = doc(db, "user", `${user.email}`);
+  const coinPath = doc(db, "user", `${user?.email}`);
   const deleteCoin = async (passedid) => {
     try {
       const result = coins.filter((item) => item.id !== passedid);
@@ -29,7 +29,7 @@ const SavedCoin = () => {
 
   return (
     <div>
-      {coins.length === 0 ? (
+      {coins?.length === 0 ? (
         <p>
           You don't have any coins saved. Please save a coin to add it to your
           watch list. <Link to="/">Click here to search your coins</Link>
@@ -44,7 +44,7 @@ const SavedCoin = () => {
             </tr>
           </thead>
           <tbody>
-            {coins.map((coin) => (
+            {coins?.map((coin) => (
               <tr key={coin.id} className="h-[60px] overflow-hidden">
                 <td>{coin?.name}</td>
                 <td>
@@ -60,7 +60,7 @@ const SavedCoin = () => {
                     </div>
                   </Link>
                 </td>
-                <td onClick={() => deleteCoin(coin.id)} className="pl-8">
+                <td onClick={() => deleteCoin(coin?.id)} className="pl-8">
                   <AiOutlineClose className="cursor-pointer" />
                 </td>
               </tr>
